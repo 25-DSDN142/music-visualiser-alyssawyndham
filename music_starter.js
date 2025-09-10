@@ -1,43 +1,94 @@
+let firstRun = true;
+
+let myImage; 
 
 // vocal, drum, bass, and other are volumes ranging from 0 to 100
+
 function draw_one_frame(words, vocal, drum, bass, other, counter) {
-  background(20)
-  textFont('Verdana'); // please use CSS safe fonts
+ background(37, 213, 248)
+  textFont('Rockwell'); // please use CSS safe fonts
   rectMode(CENTER)
-  textSize(24);
-  
-   let bar_spacing = height / 10;
-   let bar_height = width / 12;
-   let bar_pos_x = width / 2;
- 
-// changes 
-   // vocal bar is red
-   fill(200, 0, 0);
-   rect(bar_pos_x, height / 2 + 1 * bar_spacing, 4 * vocal, bar_height);
-   fill(0);
-   text("vocals", bar_pos_x, height / 2 + 1 * bar_spacing + 8);
- 
-   // drum bar is green
-   fill(0, 200, 0);
-   rect(bar_pos_x, height / 2 + 2 * bar_spacing, 4 * drum, bar_height);
-   fill(0);
-   text("drums", bar_pos_x, height / 2 + 2 * bar_spacing + 8);
- 
-   // bass bar is blue
-   fill(50, 50, 240);
-   rect(bar_pos_x, height / 2 + 3 * bar_spacing, 4 * bass, bar_height);
-   fill(0);
-   text("bass", bar_pos_x, height / 2 + 3 * bar_spacing + 8);
- 
-   // other bar is white
-   fill(200, 200, 200);
-   rect(bar_pos_x, height / 2 + 4 * bar_spacing, 4 * other, bar_height);
-   fill(0);
-   text("other", bar_pos_x, height / 2 + 4 * bar_spacing + 8);
-   fill(255, 255, 0);
- 
-   // display "words"
-   textAlign(CENTER);
-   textSize(vocal);
-   text(words, width/2, height/3);
+  textSize(40);
+
+  if(firstRun){
+
+    myImage = loadImage('TROPICS.png')
+    myImage2 = loadImage('WATER.png')
+    firstRun = false;
+
+  }
+
+image(myImage2, 0, 0);
+
+//dark blue changes
+let Lblue = color(44, 255, 255);
+let Dblue = color(96, 82, 234);
+
+let lerpAmt2 = map(vocal, 0, 100, 0, 1);
+let changingBlue = lerpColor(Lblue,Dblue, lerpAmt2);
+
+ //darkwater spots
+
+drawDarkwater(500, 500);
+
+drawDarkwater2(350, 350);
+drawDarkwater2(650, 350);
+drawDarkwater2(350, 650);
+drawDarkwater2(650, 650);
+
+drawDarkwater(500, 200);
+drawDarkwater(500, 800);
+drawDarkwater(800, 500);
+drawDarkwater(200, 500);
+
+//light  water rings
+drawWhitewater(650, 500)
+drawWhitewater(350, 500);
+drawWhitewater(500,350);
+drawWhitewater(500, 650);
+
+image(myImage, 0, 0);
+
+// light and dark pinks
+let Lpink = color(248,135,145);
+let Dpink = color(221,36,51);
+
+let lerpAmt = map(bass, 0, 100, 0, 1);
+let changingPink = lerpColor(Lpink,Dpink, lerpAmt);
+
+
+// display "words"
+stroke(255, 255, 255)
+strokeWeight(10) 
+fill(changingPink);
+textAlign(CENTER, CENTER);
+textSize(vocal);
+text(words, width/2, height/2);
+
+//dark water function
+strokeWeight(0)
+function drawDarkwater(darkX, darkY){
+changingBlue.setAlpha(150);
+fill(changingBlue);
+stroke(0);
+ellipse(darkX, darkY, drum * 4);
 }
+
+strokeWeight(0)
+function drawDarkwater2(darkX, darkY){
+changingBlue.setAlpha(150);
+fill(changingBlue);
+stroke(0);
+ellipse(darkX, darkY, drum * 3);
+}
+
+//light water function
+function drawWhitewater(lightX, lightY){
+fill(255, 255, 255, 0);
+stroke(255, 255, 255,)
+strokeWeight(15)
+ellipse(lightX, lightY, bass * 5)
+}
+
+}
+
