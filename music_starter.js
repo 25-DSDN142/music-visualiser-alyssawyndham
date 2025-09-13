@@ -12,8 +12,8 @@ function draw_one_frame(words, vocal, drum, bass, other, counter) {
 
   if(firstRun){
 
-    myImage = loadImage('TROPICS.png')
-    myImage2 = loadImage('WATER.png')
+    myImage = loadImage('TROPICS.png');
+    myImage2 = loadImage('WATER.png');
     firstRun = false;
 
   }
@@ -27,6 +27,13 @@ let Dblue = color(96, 82, 234);
 let lerpAmt2 = map(vocal, 0, 100, 0, 1);
 let changingBlue = lerpColor(Lblue,Dblue, lerpAmt2);
 
+//secondary dark blue changes
+let Lblue2 = color(96, 82, 234);
+let Dblue2 = color(44, 255,255);
+
+let lerpAmt3 = map(vocal, 0, 100, 0, 1);
+let changingBlue2 = lerpColor(Lblue2, Dblue2, lerpAmt3);
+
  //darkwater spots
 
 drawDarkwater(500, 500);
@@ -36,10 +43,15 @@ drawDarkwater2(650, 350);
 drawDarkwater2(350, 650);
 drawDarkwater2(650, 650);
 
-drawDarkwater(500, 200);
-drawDarkwater(500, 800);
-drawDarkwater(800, 500);
-drawDarkwater(200, 500);
+//drawDarkwater(500, 200);
+//drawDarkwater(500, 800);
+//drawDarkwater(800, 500);
+//drawDarkwater(200, 500);
+
+drawRipple(500, 200);
+drawRipple(500, 800);
+drawRipple(800, 500);
+drawRipple(200, 500);
 
 //light  water rings
 drawWhitewater(650, 500)
@@ -58,15 +70,15 @@ let changingPink = lerpColor(Lpink,Dpink, lerpAmt);
 
 
 // display "words"
-stroke(255, 255, 255)
-strokeWeight(10) 
+stroke(255, 255, 255);
+strokeWeight(10);
 fill(changingPink);
 textAlign(CENTER, CENTER);
 textSize(vocal);
 text(words, width/2, height/2);
 
 //dark water function
-strokeWeight(0)
+strokeWeight(0);
 function drawDarkwater(darkX, darkY){
 changingBlue.setAlpha(150);
 fill(changingBlue);
@@ -74,10 +86,25 @@ stroke(0);
 ellipse(darkX, darkY, drum * 4);
 }
 
-strokeWeight(0)
-function drawDarkwater2(darkX, darkY){
+//RIPPLE WATER
+
+function drawRipple(ripX, ripY){
+strokeWeight(15);
 changingBlue.setAlpha(150);
-fill(changingBlue);
+stroke(changingBlue);
+fill(0, 0);
+ellipse(ripX, ripY, drum * 4);
+ellipse(ripX, ripY, drum * 3);
+ellipse(ripX, ripY, drum * 2);
+ellipse (ripX, ripY, drum);
+}
+
+
+//smaller dark water
+strokeWeight(0);
+function drawDarkwater2(darkX, darkY){
+changingBlue2.setAlpha(150);
+fill(changingBlue2);
 stroke(0);
 ellipse(darkX, darkY, drum * 3);
 }
@@ -85,9 +112,9 @@ ellipse(darkX, darkY, drum * 3);
 //light water function
 function drawWhitewater(lightX, lightY){
 fill(255, 255, 255, 0);
-stroke(255, 255, 255,)
-strokeWeight(15)
-ellipse(lightX, lightY, bass * 5)
+stroke(255, 255, 255,);
+strokeWeight(15);
+ellipse(lightX, lightY, bass * 5);
 }
 
 }
